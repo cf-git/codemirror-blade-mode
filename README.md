@@ -20,5 +20,6 @@ const editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
 });
 editor.on('change', () => editor.save());
 
-
 ```
+Then you will get something like:
+![Example code highlight](example.jpg)
