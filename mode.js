@@ -28,7 +28,7 @@ export default function ( CodeMirror ) {
                 "verbatim", "endverbatim",
                 "extends", "section", "endsection", "hasSection", "stop", "show", "parent", "yield",
                 "selected", "checked", "class", "disabled", "props", "aware", "inject",
-            ]).join('\(?)|(@') + "\(?))\\b"),
+            ]).join(')|(@') + "))"),
             operator = /^((\^{2})|([&|]{1,2})|([!~+\-*\/]=?)|([!<>=]=?)|(===))/,
             coalescence = /\?\?/,
             variable = /\$[a-zA-Z]+([a-zA-Z_])?/,
@@ -45,7 +45,7 @@ export default function ( CodeMirror ) {
         }
 
         return {
-            version: "1.0.0.1",
+            version: "1.0.0.2",
             startState: function () {
                 return {
                     inCondition: false,
@@ -172,7 +172,7 @@ export default function ( CodeMirror ) {
                     }
                 }
 
-                if (stream.match(/@@[^\b]*\b/) || stream.match(/@\{\{.*\}\}/)) {
+                if (stream.match(/@@[^\b]*\b/) || stream.match(/@{{.*}}/)) {
                     return null;
                 }
 
@@ -181,10 +181,14 @@ export default function ( CodeMirror ) {
                     if (ch === '@verbatim') {
                         state.inVerbatim = true;
                     }
-                    if (ch.slice(-1) === '(') {
+                    if (ch.indexOf('@end') === 0) {
+                        state.inCondition = false;
+                        return 'directive'
+                    }
+                    if (stream.match(/\s*\(/)) {
                         state.inCondition = true;
                     }
-                    return 'directive directive-custom';
+                    return 'directive';
                 }
 
                 if ((ch = stream.match(/@[a-zA-Z]+\(?/))) {
@@ -265,8 +269,8 @@ export default function ( CodeMirror ) {
                     return 'tag';
                 }
                 move(stream, state);
-            }
-        };
+            },
+        }
     }, "htmlmixed", "clike");
 
     CodeMirror.defineMIME("text/x-blade", "blade");
