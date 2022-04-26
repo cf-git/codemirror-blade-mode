@@ -1,0 +1,50 @@
+
+// CodeMirror, copyright (c) by SERHII SHUBIN and others
+// Distributed under an MIT license: https://codemirror.net/LICENSE
+.CodeMirror-line {
+    // Blade mode
+    .cm-directive {
+        font-weight: 600;
+        color: #e00;
+    }
+    .cm-string, .cm-print {
+        color: #a11;
+    }
+    .cm-number {
+        color: #00f
+    }
+    .cm-operator {
+        color: #00f;
+        font-weight: 600;
+    }
+    .cm-function {
+        color: #682286;
+        font-weight: 400;
+    }
+    .cm-function.cm-method {
+        font-weight: 600;
+        color: #708;
+    }
+    .cm-variable {
+        color: #708;
+    }
+    .cm-variable:not(.cm-property) {
+        font-weight: 600;
+        color: #708;
+    }
+    .cm-comment {
+        color: #aaa;
+    }
+    .cm-atom {
+        color: #219;
+        font-weight: 600;
+    }
+    // HTML
+    .cm-attribute.cm-attribute-value {
+        color: #a11;
+    }
+    .cm-tag {
+        color: #170;
+        font-weight: 600;
+    }
+}
